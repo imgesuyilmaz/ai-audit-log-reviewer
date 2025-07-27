@@ -137,8 +137,9 @@ if uploaded_file:
                     line = f"- {ts} | {usr} | {ev} | {reason}"
                     pdf.chapter_body(line)
 
-                pdf_buffer = BytesIO()
-                pdf.output(pdf_buffer)
+                pdf_data = pdf.output(dest='S').encode('latin-1')  # Convert to bytes
+                st.download_button("📄 Download PDF", data=pdf_data, file_name="audit_log_report.pdf", mime="application/pdf")
+
                 pdf_buffer.seek(0)
 
                 st.download_button("📄 Download PDF", data=pdf_buffer, file_name="audit_log_report.pdf", mime="application/pdf")
